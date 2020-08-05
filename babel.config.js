@@ -19,6 +19,7 @@ module.exports = {
           '@views': './src/views',
           '@controllers': './src/controllers',
           '@config': './src/config',
+          '@utils': './src/utils',
         },
       },
     ],

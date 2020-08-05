@@ -1,9 +1,16 @@
 import { User } from '@models/User';
 
-export class UserController {
-  async store(req, res) {
-    console.log({ req, res });
-    const user = new User();
-    return user;
+class UserController {
+  async index(req, res) {
+    console.log(User);
+    return res.status(200).json({ hello: 'world', User });
   }
+
+  async find(req, res) {
+    return new User();
+  }
+
+  async store(req, res) {}
 }
+
+export default new UserController();

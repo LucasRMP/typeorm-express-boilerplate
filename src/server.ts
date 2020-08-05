@@ -1,8 +1,8 @@
-import express from 'express';
-import '@controllers/UserController';
+import { config as configEnv } from 'dotenv';
+import 'reflect-metadata';
 
-const app = express();
+import app from './app';
 
-app.get('/', (req, res) => res.status(200).json({ hello: 'world' }));
+configEnv();
 
 app.listen(process.env.PORT || 3333);
