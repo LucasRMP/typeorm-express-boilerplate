@@ -1,8 +1,8 @@
 {
-  "name": "typeorm-boilerplate",
+  "name": "@lucasrmp/typeorm-express-boilerplate",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "git@github.com:LucasRMP/typeorm-boilerplate.git",
+  "repository": "git@github.com:LucasRMP/typeorm-express-boilerplate.git",
   "author": "Lucas Pessone <lucas.rmagalhaes@gmail.com>",
   "license": "MIT",
   "scripts": {
