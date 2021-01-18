@@ -4,12 +4,12 @@ export class createUser1596578379100 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'user',
+        name: 'users',
         columns: [
           {
             name: 'id',
             type: 'varchar',
-            generationStrategy: 'uuid',
+            generationStrategy: 'increment',
             isPrimary: true,
           },
           {
@@ -20,14 +20,22 @@ export class createUser1596578379100 implements MigrationInterface {
           },
           { type: 'varchar', length: '50', name: 'mail' },
           { type: 'varchar', name: 'password' },
-          { type: 'date', name: 'createdAt' },
-          { type: 'date', name: 'updatedAt' },
+          {
+            name: 'createdAt',
+            type: 'timestamp with time zone',
+            default: "timezone('utc'::text, now())",
+          },
+          {
+            name: 'updatedAt',
+            type: 'timestamp with time zone',
+            default: "timezone('utc'::text, now())",
+          },
         ],
       })
     );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('user');
+    await queryRunner.dropTable('users');
   }
 }

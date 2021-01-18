@@ -7,10 +7,11 @@ import {
   BeforeUpdate,
   CreateDateColumn,
   UpdateDateColumn,
+  BaseEntity,
 } from 'typeorm';
 
-@Entity()
-export class User {
+@Entity({ name: 'users' })
+export class User extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -23,10 +24,10 @@ export class User {
   @Column({ nullable: false })
   password: string;
 
-  @CreateDateColumn()
+  @CreateDateColumn({ default: new Date() })
   createdAt: Date;
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({ default: new Date() })
   updatedAt: Date;
 
   @BeforeInsert()
