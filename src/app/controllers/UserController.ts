@@ -1,18 +1,25 @@
 import axios from 'axios';
-import { RequestHandler } from 'express';
+import { Controller, Param, Body, Get, Post } from 'routing-controllers';
 import { getRepository } from 'typeorm';
 
 import { User } from '@models/User';
 
+interface IUserInput {
+  name: string;
+  mail: string;
+  password: string;
+}
+
+@Controller('/users')
 class UserController {
-  static index: RequestHandler = async (_, res) => {
+  @Get()
+  async index() {
     const users = await User.find();
-    return res.status(200).json({ users });
-  };
+    return users;
+  }
 
-  static show: RequestHandler = async (req, res) => {
-    const { slug } = req.params;
-
+  @Get('/:slug')
+  async show(@Param('slug') slug: string) {
     const user = await getRepository(User)
       .createQueryBuilder()
       .select()
@@ -22,20 +29,20 @@ class UserController {
       })
       .getOne();
 
-    return res.json(user);
-  };
+    return user;
+  }
 
-  static store: RequestHandler = async (req, res) => {
-    const { name, mail, password } = req.body;
+  @Post()
+  async store(@Body() body: IUserInput) {
+    const { name, mail, password } = body;
 
     const { data: ghProfile } = await axios.get(
       `https://api.github.com/users/${name}`
     );
 
     const user = await User.create({ name, mail, password, ghProfile }).save();
-
-    return res.status(201).json(user);
-  };
+    return user;
+  }
 }
 
 export default UserController;

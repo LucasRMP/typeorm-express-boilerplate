@@ -37,6 +37,11 @@ export class createUser1596578379100 implements MigrationInterface {
             type: 'timestamp with time zone',
             default: "timezone('utc'::text, now())",
           },
+          {
+            name: 'deleted_at',
+            type: 'timestamp with time zone',
+            isNullable: true,
+          },
         ],
       })
     );

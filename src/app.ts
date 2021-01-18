@@ -1,17 +1,23 @@
+import bodyParser from 'body-parser';
 import express from 'express';
+import { join } from 'path';
+import { useExpressServer } from 'routing-controllers';
 import { createConnection } from 'typeorm';
+
 import 'dotenv/config';
 import 'reflect-metadata';
 
-import routes from './routes';
-
 createConnection().then(() => {
-  const app = express();
+  const server = express();
 
-  app.use(express.json());
-  app.use('/v1', routes);
+  server.use(bodyParser.json());
+  server.use(bodyParser.urlencoded({ extended: true }));
 
-  app.listen(process.env.PORT || 3333, () => {
+  useExpressServer(server, {
+    controllers: [join(__dirname, 'app', 'controllers', '*.ts')],
+  });
+
+  server.listen(process.env.PORT || 3333, () => {
     console.log(`Server listening on port ${process.env.PORT}`);
   });
 });
