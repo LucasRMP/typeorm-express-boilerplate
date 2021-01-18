@@ -9,8 +9,9 @@ export class createUser1596578379100 implements MigrationInterface {
           {
             name: 'id',
             type: 'varchar',
-            generationStrategy: 'increment',
             isPrimary: true,
+            generationStrategy: 'uuid',
+            default: 'uuid_generate_v4()',
           },
           {
             name: 'name',
@@ -21,12 +22,18 @@ export class createUser1596578379100 implements MigrationInterface {
           { type: 'varchar', length: '50', name: 'mail' },
           { type: 'varchar', name: 'password' },
           {
-            name: 'createdAt',
+            name: 'gh_profile',
+            type: 'jsonb',
+            isNullable: true,
+            isArray: false,
+          },
+          {
+            name: 'created_at',
             type: 'timestamp with time zone',
             default: "timezone('utc'::text, now())",
           },
           {
-            name: 'updatedAt',
+            name: 'updated_at',
             type: 'timestamp with time zone',
             default: "timezone('utc'::text, now())",
           },
