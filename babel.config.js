@@ -18,6 +18,7 @@ module.exports = {
           '@models': './src/app/models',
           '@views': './src/app/views',
           '@controllers': './src/app/controllers',
+          '@services': './src/app/services',
           '@config': './src/config',
           '@utils': './src/utils',
         },

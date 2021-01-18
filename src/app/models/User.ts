@@ -55,7 +55,7 @@ export class User extends BaseEntity {
   name: string;
 
   @Column({ nullable: false })
-  mail: string;
+  email: string;
 
   @Column({ nullable: false })
   password: string;
@@ -67,6 +67,9 @@ export class User extends BaseEntity {
     nullable: true,
   })
   ghProfile: IGithubProfile;
+
+  @Column({ default: 1, name: 'token_version' })
+  tokenVersion: number;
 
   @CreateDateColumn({ name: 'created_at', default: new Date() })
   createdAt: Date;

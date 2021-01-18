@@ -1,17 +1,29 @@
-import axios from 'axios';
-import { Controller, Param, Body, Get, Post } from 'routing-controllers';
+import {
+  Controller,
+  Param,
+  Body,
+  Get,
+  Post,
+  CurrentUser,
+} from 'routing-controllers';
 import { getRepository } from 'typeorm';
 
 import { User } from '@models/User';
+import UserService from '@services/UserService';
 
-interface IUserInput {
+export interface IUserInput {
   name: string;
-  mail: string;
+  email: string;
   password: string;
 }
 
 @Controller('/users')
 class UserController {
+  @Get('/me')
+  async me(@CurrentUser() user: any) {
+    return user;
+  }
+
   @Get()
   async index() {
     const users = await User.find();
@@ -34,14 +46,9 @@ class UserController {
 
   @Post()
   async store(@Body() body: IUserInput) {
-    const { name, mail, password } = body;
+    const { name, email, password } = body;
 
-    const { data: ghProfile } = await axios.get(
-      `https://api.github.com/users/${name}`
-    );
-
-    const user = await User.create({ name, mail, password, ghProfile }).save();
-    return user;
+    return UserService.createUser({ name, email, password });
   }
 }
 
